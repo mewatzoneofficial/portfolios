@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { PORTFOLIO_DATA as D } from '@/data/portfolio'
 import { AVATAR_BASE64 } from '@/data/avatarBase64'
 
@@ -47,16 +47,30 @@ const WA_ICON = (
 )
 
 export default function FloatingWidgets() {
-  const [showScrollTop, setShowScrollTop] = useState(false)
   const [waOpen, setWaOpen] = useState(false)
+  const scrollBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 400)
+    const btn = scrollBtnRef.current
+    if (!btn) return
+
+    const onScroll = () => {
+      const scrolled = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      if (scrolled > 300) {
+        btn.classList.add('visible')
+      } else {
+        btn.classList.remove('visible')
+      }
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll() // run once on mount to set initial state
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <>
@@ -128,7 +142,8 @@ export default function FloatingWidgets() {
 
       {/* ── Scroll To Top ── */}
       <button
-        className={`scroll-top-btn${showScrollTop ? ' visible' : ''}`}
+        ref={scrollBtnRef}
+        className="scroll-top-btn"
         onClick={scrollTop}
         aria-label="Scroll to top"
       >
