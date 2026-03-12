@@ -10,7 +10,9 @@ export default function HeroCanvas() {
     const c = cv.getContext('2d')
     if (!c) return
 
-    let W: number, H: number
+    // let W: number, H: number
+    let W = window.innerWidth
+    let H = window.innerHeight
     const dots: Dot[] = []
 
     function resize() {
