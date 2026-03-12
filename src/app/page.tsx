@@ -10,12 +10,14 @@ import AboutSection from '@/components/AboutSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
+import FloatingWidgets from '@/components/FloatingWidgets'
 
 export default function Home() {
   return (
     <>
       <CustomCursor />
       <ThemeSwitcher />
+      <FloatingWidgets />
       <Navbar />
       <HeroSection />
       <MarqueeBanner />

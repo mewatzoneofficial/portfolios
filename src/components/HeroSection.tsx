@@ -1,6 +1,24 @@
-import Image from 'next/image'
+'use client'
 import HeroCanvas from './HeroCanvas'
 import { PORTFOLIO_DATA as D } from '@/data/portfolio'
+import { AVATAR_BASE64 } from '@/data/avatarBase64'
+import { RESUME_BASE64 } from '@/data/resumeBase64'
+
+function downloadResume() {
+  const base64 = RESUME_BASE64.split(',')[1]
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+  const blob = new Blob([bytes], { type: 'application/pdf' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'Raseed_Saukat_Ali_Resume.pdf'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
+}
 
 export default function HeroSection() {
   return (
@@ -12,19 +30,14 @@ export default function HeroSection() {
       <div className="hero-body">
         {/* Avatar */}
         <div className="hero-avatar-wrap">
-          <div className="avatar-ring">
-            <div className="avatar-inner">
-              <span className="avatar-initials">
-                <Image
-                  src={D.avatarUrl}
-                  alt="RSA"
-                  width={150}
-                  height={150}
-                  style={{ borderRadius: '50%', objectFit: 'cover' }}
-                  unoptimized
-                />
-              </span>
-            </div>
+          <div className="avatar-frame">
+            <div className="avatar-frame-glow" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={AVATAR_BASE64}
+              alt="Raseed Saukat Ali"
+              className="avatar-photo"
+            />
           </div>
           <div className="avatar-status">Open to Work</div>
         </div>
@@ -52,14 +65,14 @@ export default function HeroSection() {
               </svg>
               Hire Me
             </a>
-            <a href={D.resumePdf} download="Raseed_Saukat_Ali_Resume.pdf" className="btn btn-download">
+            <button onClick={downloadResume} className="btn btn-download">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               Resume
-            </a>
+            </button>
             <a href={D.linkedin} target="_blank" rel="noreferrer" className="btn btn-outline">
               in &nbsp;LinkedIn
             </a>

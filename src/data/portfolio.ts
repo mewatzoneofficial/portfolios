@@ -7,7 +7,7 @@ export const PORTFOLIO_DATA = {
   linkedin: 'https://www.linkedin.com/in/saukatali5200',
   github: 'https://github.com/saukatali5200',
   resumePdf: '/Saukat_Ali_2026.pdf',
-  avatarUrl: 'https://lh3.googleusercontent.com/a/ACg8ocLxo59-9PKe0NNeNXpnbI4Y_9ZN6F5A-_f2FWpD9H4Qfm9uOY8=s83-c-mo',
+  avatarUrl: '/avatar.png',
   bio: 'Experienced Full-Stack Web Developer with 4+ years of expertise in Laravel, CodeIgniter, Node.js, and MySQL. Skilled in building e-commerce platforms, AI job portals, REST APIs, and scalable backend systems — with hands-on experience in payment gateways (PayPal, CashFree, MyFatoora), third-party integrations (Twilio, Firebase, Social Login), deployment, and team coordination across global clients.',
   education: {
     degree: 'Bachelor of Computer Applications (BCA)',

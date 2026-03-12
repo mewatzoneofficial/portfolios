@@ -5,7 +5,6 @@ const THEMES = [
   { key: 'ocean', label: 'Ocean' },
   { key: 'ember', label: 'Ember' },
   { key: 'jade', label: 'Jade' },
-  { key: 'white', label: 'White' },
 ]
 
 export default function ThemeSwitcher() {
@@ -13,8 +12,10 @@ export default function ThemeSwitcher() {
 
   useEffect(() => {
     const saved = localStorage.getItem('rsa_theme') || 'ocean'
-    setActive(saved)
-    document.documentElement.setAttribute('data-theme', saved)
+    const valid = THEMES.map(t => t.key).includes(saved) ? saved : 'ocean'
+    if (saved !== valid) localStorage.setItem('rsa_theme', valid)
+    setActive(valid)
+    document.documentElement.setAttribute('data-theme', valid)
   }, [])
 
   const setTheme = (t: string) => {
